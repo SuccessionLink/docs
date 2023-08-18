@@ -1,18 +1,9 @@
 ---
 title: API Reference
 
-language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers
+language_tabs:
   - shell
-  - ruby
   - python
-  - javascript
-
-toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
-
-includes:
-  - errors
 
 search: true
 
@@ -20,226 +11,140 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: Documentation for the Succession Link API
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
-
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Welcome to the Succession Link API. This is a work in progress.
 
 # Authentication
 
-> To authorize, use this code:
+Authentication is done via an API key. Include an "Authorization" header in each
+request. The format is as follows:
 
-```ruby
-require 'kittn'
+`Authorization: Token YOUR_TOKEN`
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
 
-```python
-import kittn
+# Valuations
 
-api = kittn.authorize('meowmeowmeow')
-```
+## Quick Valuation
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
+The quick valuation provides a simple valuation based on a minimal number of
+attributes. Most attributes are optional. 
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
+The response includes a `valuation` object which contains the value for the
+business.
 
 ```python
-import kittn
+import json
+import requests
+data = {
+    "revenue": {
+        "year": 2023,
+        "revenue": 10000000
+    },
+    "business_info": {
+        "ownership_percentage" : 100,
+        "percent_commission_based" : 10,
+        "percent_fee_based" : 90
+    }
+}
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+url = "https://successionlink.com/api/v1/valuation/quick/"
+r = requests.post(
+  url,
+  headers={
+    'content-type': 'application/json',
+    'authorization': 'Token YOUTOKEN'
+  }, data=json.dumps(data))
+print(json.dumps(r.json(), indent=2))
 ```
+
 
 ```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+curl -X POST https://successionlink.com/api/v1/valuation/quick/ \
+-H 'Authentication: Token TOKEN' \
+-H 'Content-Type: application/json' \
+-d @- <<EOF
+{
+    "revenue": {
+        "year": 2023,
+        "revenue": 10000000
+    },
+    "business_info": {
+        "ownership_percentage" : 100,
+        "percent_commission_based" : 10,
+        "percent_fee_based" : 90
+    }
+}
+EOF
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+{
+  "status": "success",
+  "statusCode": 200,
+  "message": "valuations data",
+  "response": {
+    "default_method": "fee_commission",
+    "supported_methods": [
+      "fee_commission"
+    ],
+    "fee_commission": {
+      "valuation": 26375000,
+      "fee_valuation": 24750000,
+      "commission_valuation": 1624999.9999999995,
+      "fee_multiplier": 2.75,
+      "commission_multiplier": 1.625
+    },
+    "valuation": {
+      "valuation": 26375000,
+      "fee_valuation": 24750000,
+      "commission_valuation": 1624999.9999999995,
+      "fee_multiplier": 2.75,
+      "commission_multiplier": 1.625
+    }
   }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`POST https://successionlink.com/api/v1/valuation/quick/`
 
-### URL Parameters
+### Data Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+Parameter     | Description
+------------- | -----------
+revenue       | This is an object that contains data on expenses and revenue
+business_info | This is an object that contains details on the business
 
-## Delete a Specific Kitten
+### Revenue Object
+Parameter        | Description
+-------------    | -----------
+year             | The year for the data
+revenue          | Total revenue for `year`
+aum              | (Optional) The year for the data
+expenses         | (Optional) Total expenses for `year`
+interest_expense | (Optional) Total interest expense for `year`
+noncash_expenses | (Optional) Total non-cash expenses for `year`
+office_comp      | (Optional) Officer compensation for `year`
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
-
+### Business Info Object
+Parameter                | Description
+-------------            | -----------
+ownership_percentage     | The percent ownership for this user. If unsure default to 100%
+percent_commission_based | Percentage of revenue that is commission based
+percent_fee_based        | Percentage of revenue that is fee based
+avg_client_age           | (Optional) Average age of clients
+num_clients              | (Optional) Number of cliens
+num_employees            | (Optional) Number of employess
+business_name            | (Optional) Name of business
+street1                  | (Optional) Business address
+street2                  | (Optional) Business address 2
+city                     | (Optional) Business city
+state                    | (Optional) Business state
+zip                      | (Optional) Business zip
