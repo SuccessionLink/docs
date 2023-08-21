@@ -347,27 +347,12 @@ attributes. Most attributes are optional. The </p>
 <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">"revenue"</span><span class="p">:</span> <span class="p">{</span>
         <span class="s">"year"</span><span class="p">:</span> <span class="mi">2023</span><span class="p">,</span>
-        <span class="s">"aum"</span><span class="p">:</span> <span class="mi">1000000000</span><span class="p">,</span>
-        <span class="s">"revenue"</span><span class="p">:</span> <span class="mi">10000000</span><span class="p">,</span>
-        <span class="s">"expenses"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s">"interest_expense"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s">"noncash_expenses"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s">"office_comp"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-
+        <span class="s">"revenue"</span><span class="p">:</span> <span class="mi">10000000</span>
     <span class="p">},</span>
     <span class="s">"business_info"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s">"avg_client_age"</span> <span class="p">:</span> <span class="s">"50"</span><span class="p">,</span>
-        <span class="s">"business_name"</span> <span class="p">:</span> <span class="s">"Tims LLC"</span><span class="p">,</span>
-        <span class="s">"city"</span> <span class="p">:</span> <span class="s">"Vista"</span><span class="p">,</span>
-        <span class="s">"num_clients"</span> <span class="p">:</span> <span class="s">"50"</span><span class="p">,</span>
-        <span class="s">"num_employees"</span> <span class="p">:</span> <span class="s">"50"</span><span class="p">,</span>
         <span class="s">"ownership_percentage"</span> <span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
         <span class="s">"percent_commission_based"</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-        <span class="s">"percent_fee_based"</span> <span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
-        <span class="s">"state"</span> <span class="p">:</span> <span class="s">"California"</span><span class="p">,</span>
-        <span class="s">"street1"</span> <span class="p">:</span> <span class="s">"123 Main Street"</span><span class="p">,</span>
-        <span class="s">"street2"</span> <span class="p">:</span> <span class="s">""</span><span class="p">,</span>
-        <span class="s">"zip"</span> <span class="p">:</span> <span class="s">"92084"</span>
+        <span class="s">"percent_fee_based"</span> <span class="p">:</span> <span class="mi">90</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
@@ -386,26 +371,12 @@ attributes. Most attributes are optional. The </p>
 {
     "revenue": {
         "year": 2023,
-        "aum": 1000000000,
-        "revenue": 10000000,
-        "expenses": 0,
-        "interest_expense": 0,
-        "noncash_expenses": 0,
-        "office_comp": 0
+        "revenue": 10000000
     },
     "business_info": {
-        "avg_client_age" : "50",
-        "business_name" : "Tims LLC",
-        "city" : "Vista",
-        "num_clients" : "50",
-        "num_employees" : "50",
         "ownership_percentage" : 100,
         "percent_commission_based" : 10,
-        "percent_fee_based" : 90,
-        "state" : "California",
-        "street1" : "123 Main Street",
-        "street2" : "",
-        "zip" : "92084"
+        "percent_fee_based" : 90
     }
 }
 </span><span class="no">EOF
@@ -454,7 +425,7 @@ attributes. Most attributes are optional. The </p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://successionlink.com/api/v1/valuation/quick/</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<h3 id='data-parameters'>Data Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -468,6 +439,98 @@ attributes. Most attributes are optional. The </p>
 <tr>
 <td>business_info</td>
 <td>This is an object that contains details on the business</td>
+</tr>
+</tbody></table>
+<h3 id='revenue-object'>Revenue Object</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>year</td>
+<td>The year for the data</td>
+</tr>
+<tr>
+<td>revenue</td>
+<td>Total revenue for <code>year</code></td>
+</tr>
+<tr>
+<td>aum</td>
+<td>(Optional) The year for the data</td>
+</tr>
+<tr>
+<td>expenses</td>
+<td>(Optional) Total expenses for <code>year</code></td>
+</tr>
+<tr>
+<td>interest_expense</td>
+<td>(Optional) Total interest expense for <code>year</code></td>
+</tr>
+<tr>
+<td>noncash_expenses</td>
+<td>(Optional) Total non-cash expenses for <code>year</code></td>
+</tr>
+<tr>
+<td>office_comp</td>
+<td>(Optional) Officer compensation for <code>year</code></td>
+</tr>
+</tbody></table>
+<h3 id='business-info-object'>Business Info Object</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ownership_percentage</td>
+<td>The percent ownership for this user. If unsure default to 100%</td>
+</tr>
+<tr>
+<td>percent_commission_based</td>
+<td>Percentage of revenue that is commission based</td>
+</tr>
+<tr>
+<td>percent_fee_based</td>
+<td>Percentage of revenue that is fee based</td>
+</tr>
+<tr>
+<td>avg_client_age</td>
+<td>(Optional) Average age of clients</td>
+</tr>
+<tr>
+<td>num_clients</td>
+<td>(Optional) Number of cliens</td>
+</tr>
+<tr>
+<td>num_employees</td>
+<td>(Optional) Number of employess</td>
+</tr>
+<tr>
+<td>business_name</td>
+<td>(Optional) Name of business</td>
+</tr>
+<tr>
+<td>street1</td>
+<td>(Optional) Business address</td>
+</tr>
+<tr>
+<td>street2</td>
+<td>(Optional) Business address 2</td>
+</tr>
+<tr>
+<td>city</td>
+<td>(Optional) Business city</td>
+</tr>
+<tr>
+<td>state</td>
+<td>(Optional) Business state</td>
+</tr>
+<tr>
+<td>zip</td>
+<td>(Optional) Business zip</td>
 </tr>
 </tbody></table>
 
