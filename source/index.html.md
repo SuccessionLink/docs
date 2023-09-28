@@ -45,6 +45,7 @@ data = {
         "revenue": 10000000
     },
     "business_info": {
+        "reqi" : 80,
         "ownership_percentage" : 100,
         "percent_commission_based" : 10,
         "percent_fee_based" : 90
@@ -139,6 +140,8 @@ Parameter                | Description
 ownership_percentage     | The percent ownership for this user. If unsure default to 100%
 percent_commission_based | Percentage of revenue that is commission based
 percent_fee_based        | Percentage of revenue that is fee based
+rqi                      | Quality of client relationships (RQI) provided by
+Practice Intelligence 
 avg_client_age           | (Optional) Average age of clients
 num_clients              | (Optional) Number of cliens
 num_employees            | (Optional) Number of employess
