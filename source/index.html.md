@@ -45,7 +45,7 @@ data = {
         "revenue": 10000000
     },
     "business_info": {
-        "reqi" : 80,
+        "rqi" : 80,
         "ownership_percentage" : 100,
         "percent_commission_based" : 10,
         "percent_fee_based" : 90
@@ -57,7 +57,7 @@ r = requests.post(
   url,
   headers={
     'content-type': 'application/json',
-    'authorization': 'Token YOUTOKEN'
+    'authorization': 'Token YOUR_TOKEN'
   }, data=json.dumps(data))
 print(json.dumps(r.json(), indent=2))
 ```
@@ -65,7 +65,7 @@ print(json.dumps(r.json(), indent=2))
 
 ```shell
 curl -X POST https://successionlink.com/api/v1/valuation/quick/ \
--H 'Authentication: Token TOKEN' \
+-H 'Authorization: Token YOUR_TOKEN' \
 -H 'Content-Type: application/json' \
 -d @- <<EOF
 {
@@ -74,6 +74,7 @@ curl -X POST https://successionlink.com/api/v1/valuation/quick/ \
         "revenue": 10000000
     },
     "business_info": {
+        "rqi" : 80,
         "ownership_percentage" : 100,
         "percent_commission_based" : 10,
         "percent_fee_based" : 90
@@ -140,8 +141,7 @@ Parameter                | Description
 ownership_percentage     | The percent ownership for this user. If unsure default to 100%
 percent_commission_based | Percentage of revenue that is commission based
 percent_fee_based        | Percentage of revenue that is fee based
-rqi                      | Quality of client relationships (RQI) provided by
-Practice Intelligence 
+rqi                      | (Optional) Practice Intel's Quality of client relationships score (RQI)
 avg_client_age           | (Optional) Average age of clients
 num_clients              | (Optional) Number of cliens
 num_employees            | (Optional) Number of employess
