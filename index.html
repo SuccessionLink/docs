@@ -365,11 +365,11 @@ business.</p>
   <span class="n">url</span><span class="p">,</span>
   <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
     <span class="s">'content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
-    <span class="s">'authorization'</span><span class="p">:</span> <span class="s">'Token YOUTOKEN'</span>
+    <span class="s">'authorization'</span><span class="p">:</span> <span class="s">'Token YOUR_TOKEN'</span>
   <span class="p">},</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST https://successionlink.com/api/v1/valuation/quick/ <span class="se">\</span>
-<span class="nt">-H</span> <span class="s1">'Authentication: Token TOKEN'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Authorization: Token YOUR_TOKEN'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">-d</span> @- <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
 {
